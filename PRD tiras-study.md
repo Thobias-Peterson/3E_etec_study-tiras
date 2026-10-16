@@ -1,4 +1,3 @@
-Com base no PDF do seu projeto Tiras_Study, preparei um PRD (Documento de Requisitos do Produto) em português, seguindo a ordem solicitada. O documento considera as funcionalidades descritas no trabalho: cadastro e login, página inicial, perfil do aluno, conteúdos por série, aulas extracurriculares, projetos externos e colaboração entre estudantes.
 
 # PRD — Tiras_Study
 
