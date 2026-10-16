@@ -1,0 +1,201 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "usuarios" as usuarios {
+  * id_usuario : INT <<PK>>
+  --
+  nome_completo : VARCHAR(150)
+  email : VARCHAR(150) <<UNIQUE>>
+  senha_hash : VARCHAR(255)
+  serie_escolar : VARCHAR(50)
+  tipo_usuario : ENUM
+  foto_perfil : VARCHAR(255)
+  biografia : TEXT
+  data_cadastro : DATETIME
+}
+
+entity "conteudos" as conteudos {
+  * id_conteudo : INT <<PK>>
+  --
+  titulo : VARCHAR(150)
+  descricao : TEXT
+  materia : VARCHAR(100)
+  serie_escolar : VARCHAR(50)
+  recomendado : BOOLEAN
+  data_publicacao : DATETIME
+  id_autor : INT <<FK>>
+}
+
+entity "materiais_estudo" as materiais {
+  * id_material : INT <<PK>>
+  --
+  titulo : VARCHAR(150)
+  tipo_material : ENUM
+  descricao : TEXT
+  arquivo_url : VARCHAR(255)
+  status_revisao : ENUM
+  data_publicacao : DATETIME
+  id_usuario : INT <<FK>>
+  id_conteudo : INT <<FK, nullable>>
+}
+
+entity "denuncias_material" as denuncias {
+  * id_denuncia : INT <<PK>>
+  --
+  id_material : INT <<FK>>
+  id_usuario : INT <<FK>>
+  motivo : VARCHAR(255)
+  status : ENUM
+  data_denuncia : DATETIME
+}
+
+entity "planos_estudo" as planos {
+  * id_plano : INT <<PK>>
+  --
+  titulo : VARCHAR(150)
+  descricao : TEXT
+  data_inicio : DATE
+  data_fim : DATE
+  id_usuario : INT <<FK>>
+}
+
+entity "atividades_plano" as atividades {
+  * id_atividade : INT <<PK>>
+  --
+  titulo : VARCHAR(150)
+  descricao : TEXT
+  data_prevista : DATE
+  concluida : BOOLEAN
+  data_conclusao : DATETIME
+  id_plano : INT <<FK>>
+  id_conteudo : INT <<FK, nullable>>
+}
+
+entity "sequencias_estudo" as sequencias {
+  * id_sequencia : INT <<PK>>
+  --
+  nome : VARCHAR(100)
+  data_inicio : DATE
+  data_fim : DATE
+  dias_consecutivos : INT
+  id_criador : INT <<FK>>
+}
+
+entity "sequencia_participantes" as participantes {
+  * id_sequencia : INT <<PK, FK>>
+  * id_usuario : INT <<PK, FK>>
+  --
+  data_entrada : DATETIME
+}
+
+entity "amizades" as amizades {
+  * id_amizade : INT <<PK>>
+  --
+  id_usuario : INT <<FK>>
+  id_amigo : INT <<FK>>
+  status : ENUM
+  data_solicitacao : DATETIME
+}
+
+entity "mensagens" as mensagens {
+  * id_mensagem : INT <<PK>>
+  --
+  id_remetente : INT <<FK>>
+  id_destinatario : INT <<FK>>
+  conteudo : TEXT
+  data_envio : DATETIME
+}
+
+entity "conquistas" as conquistas {
+  * id_conquista : INT <<PK>>
+  --
+  nome : VARCHAR(100) <<UNIQUE>>
+  descricao : TEXT
+}
+
+entity "usuarios_conquistas" as usuarios_conquistas {
+  * id_usuario : INT <<PK, FK>>
+  * id_conquista : INT <<PK, FK>>
+  --
+  data_conquista : DATETIME
+}
+
+entity "consentimentos_lgpd" as consentimentos {
+  * id_consentimento : INT <<PK>>
+  --
+  id_usuario : INT <<FK>>
+  finalidade : VARCHAR(150)
+  aceito : BOOLEAN
+  data_registro : DATETIME
+}
+
+entity "aulas_extracurriculares" as aulas {
+  * id_aula : INT <<PK>>
+  --
+  titulo : VARCHAR(150)
+  categoria : VARCHAR(80)
+  descricao : TEXT
+  horario : VARCHAR(100)
+  local : VARCHAR(150)
+  link_inscricao : VARCHAR(255)
+}
+
+entity "eventos_extracurriculares" as eventos {
+  * id_evento : INT <<PK>>
+  --
+  id_aula : INT <<FK>>
+  titulo : VARCHAR(150)
+  tipo_evento : ENUM
+  data_evento : DATETIME
+  local : VARCHAR(150)
+}
+
+entity "projetos_externos" as projetos {
+  * id_projeto : INT <<PK>>
+  --
+  titulo : VARCHAR(150)
+  tipo_projeto : VARCHAR(100)
+  descricao : TEXT
+  prazo_inscricao : DATE
+  link_edital : VARCHAR(255)
+  link_inscricao : VARCHAR(255)
+  destaque : BOOLEAN
+  data_publicacao : DATETIME
+}
+
+entity "avisos" as avisos {
+  * id_aviso : INT <<PK>>
+  --
+  titulo : VARCHAR(150)
+  mensagem : TEXT
+  data_publicacao : DATETIME
+  id_usuario : INT <<FK, nullable>>
+}
+
+usuarios ||--o{ conteudos : publica
+usuarios ||--o{ materiais : compartilha
+conteudos |o--o{ materiais : relaciona
+materiais ||--o{ denuncias : recebe
+usuarios ||--o{ denuncias : registra
+usuarios ||--o{ planos : organiza
+planos ||--o{ atividades : contem
+conteudos |o--o{ atividades : apoia
+usuarios ||--o{ sequencias : cria
+sequencias ||--o{ participantes : reune
+usuarios ||--o{ participantes : participa
+usuarios ||--o{ amizades : solicita
+usuarios ||--o{ amizades : recebe
+usuarios ||--o{ mensagens : envia
+usuarios ||--o{ mensagens : recebe
+usuarios ||--o{ usuarios_conquistas : conquista
+conquistas ||--o{ usuarios_conquistas : atribuida
+usuarios ||--o{ consentimentos : concede
+usuarios |o--o{ avisos : publica
+aulas ||--o{ eventos : promove
+
+note bottom
+  projetos_externos e independente neste modelo:
+  as oportunidades sao divulgadas a todos os usuarios.
+end note
+@enduml

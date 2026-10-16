@@ -1,0 +1,62 @@
+flowchart TD
+    A([Inicio]) --> B[Acessar a plataforma]
+    B --> C{Possui conta?}
+    C -- Nao --> D["Cadastro: nome, e-mail, serie e senha (RF01)"]
+    D --> E{Dados validos e consentimento LGPD aceito?}
+    E -- Nao --> D
+    E -- Sim --> F[Conta criada]
+    F --> G
+    C -- Sim --> G[Login com e-mail e senha - RF02]
+    G --> H{Credenciais validas?}
+    H -- Nao --> G
+    H -- Sim --> I["Pagina inicial: avisos, novidades, conteudos e projetos em destaque (RF04)"]
+
+    I --> J[Perfil]
+    I --> K[Conteudos escolares]
+    I --> L[Materiais de estudo]
+    I --> M[Plano de estudos]
+    I --> N[Sequencias e conquistas]
+    I --> O[Amigos e mentores]
+    I --> P[Aulas extracurriculares]
+    I --> Q[Projetos externos]
+
+    J --> J1["Editar foto, nome, serie e biografia (RF03)"]
+    J1 --> Z
+
+    K --> K1[Selecionar serie atual ou anterior - RF06 e RF07]
+    K1 --> K2[Selecionar materia]
+    K2 --> K3[Consultar conteudo]
+    K3 --> L
+    K3 --> Z
+
+    L --> L1{Consultar ou publicar?}
+    L1 -- Consultar --> L2["Abrir resumo, mapa mental, trabalho ou video (RF08)"]
+    L1 -- Publicar --> L3[Enviar material e vincular ao conteudo]
+    L3 --> L4{Material denunciado ou em revisao?}
+    L4 -- Sim --> L5[Moderacao analisa o material]
+    L5 --> L2
+    L4 -- Nao --> L2
+    L2 --> Z
+
+    M --> M1[Criar ou editar plano de estudos - RF05]
+    M1 --> M2[Adicionar atividades e datas previstas]
+    M2 --> M3[Marcar atividade como concluida]
+    M3 --> Z
+
+    N --> N1[Criar ou entrar em sequencia com amigos - RF09]
+    N1 --> N2[Registrar dias consecutivos de estudo]
+    N2 --> N3[Visualizar conquistas e atividades - RF10]
+    N3 --> Z
+
+    O --> O1[Enviar ou aceitar solicitacao de amizade]
+    O1 --> O2[Trocar mensagens com amigos e mentores - RF14]
+    O2 --> Z
+
+    P --> P1[Listar aulas, horarios, eventos e apresentacoes - RF11]
+    P1 --> Z
+
+    Q --> Q1[Listar olimpiadas, feiras e concursos - RF12]
+    Q1 --> Q2[Consultar edital e abrir link de inscricao - RF13]
+    Q2 --> Z
+
+    Z([Fim])
