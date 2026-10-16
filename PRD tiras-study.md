@@ -1,7 +1,6 @@
 
 # PRD — Tiras_Study
 
-Documento de Requisitos do Produto · Desenvolvimento Web II
 
 ## 1. Visão geral e objetivo
 
@@ -31,7 +30,7 @@ Objetivo principal: facilitar a aprendizagem entre colegas, incentivar a constâ
 | Divulgação de aulas extracurriculares     | Pagamentos dentro da plataforma              |
 | Divulgação de projetos externos e editais | Inscrição automática em eventos externos     |
 
-Observação: os itens fora do escopo são delimitações propostas para a primeira versão, não restrições explicitamente definidas no PDF.
+
 
 ## 4. Requisitos funcionais
 
@@ -54,7 +53,7 @@ Os requisitos funcionais descrevem as ações que o sistema deverá permitir aos
 | RF13   | Disponibilizar links para editais e inscrições de projetos externos.                              |
 | RF14   | Oferecer acesso às áreas de interação com amigos e mentores.                                      |
 
-Os requisitos RF08 e RF14 representam funcionalidades coerentes com a proposta colaborativa descrita no PDF; os detalhes de implementação ainda precisam ser definidos.
+
 
 ## 5. Requisitos não funcionais
 
@@ -69,7 +68,7 @@ Os requisitos RF08 e RF14 representam funcionalidades coerentes com a proposta c
 | LGPD            | A plataforma deve respeitar a Lei Geral de Proteção de Dados, com medidas de segurança, transparência e controle de acesso. |
 | Acessibilidade  | Textos, botões e elementos de navegação devem ser legíveis e acessíveis a diferentes usuários.                              |
 
-Observação: os requisitos acima são propostas para o projeto. Metas numéricas de desempenho, tecnologias e procedimentos de segurança ainda precisam ser estabelecidos.
+
 
 ## 6. Regras de negócio
 
@@ -164,4 +163,3 @@ O Tiras_Study deverá oferecer um ambiente educacional organizado, intuitivo e c
 
 O sucesso do projeto poderá ser avaliado pela facilidade de utilização, pelo acesso aos materiais, pela participação dos estudantes e pela capacidade da plataforma de incentivar uma rotina de estudos mais constante.
 
-Base do documento: PDF “Trabalho de desenvolvimento web 2”, páginas 2 a 10. As regras técnicas, prioridades, critérios de aceitação e riscos foram propostos para completar o PRD, pois não estão detalhados integralmente no material original.
