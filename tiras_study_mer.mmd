@@ -1,0 +1,175 @@
+erDiagram
+    USUARIOS ||--o{ CONTEUDOS : publica
+    USUARIOS ||--o{ MATERIAIS_ESTUDO : compartilha
+    CONTEUDOS |o--o{ MATERIAIS_ESTUDO : relaciona
+    MATERIAIS_ESTUDO ||--o{ DENUNCIAS_MATERIAL : recebe
+    USUARIOS ||--o{ DENUNCIAS_MATERIAL : registra
+    USUARIOS ||--o{ PLANOS_ESTUDO : organiza
+    PLANOS_ESTUDO ||--o{ ATIVIDADES_PLANO : contem
+    CONTEUDOS |o--o{ ATIVIDADES_PLANO : apoia
+    USUARIOS ||--o{ SEQUENCIAS_ESTUDO : cria
+    SEQUENCIAS_ESTUDO ||--o{ SEQUENCIA_PARTICIPANTES : reune
+    USUARIOS ||--o{ SEQUENCIA_PARTICIPANTES : participa
+    USUARIOS ||--o{ AMIZADES : solicita
+    USUARIOS ||--o{ AMIZADES : recebe
+    USUARIOS ||--o{ MENSAGENS : envia
+    USUARIOS ||--o{ MENSAGENS : recebe
+    USUARIOS ||--o{ USUARIOS_CONQUISTAS : conquista
+    CONQUISTAS ||--o{ USUARIOS_CONQUISTAS : atribuida
+    USUARIOS ||--o{ CONSENTIMENTOS_LGPD : concede
+    USUARIOS |o--o{ AVISOS : publica
+    AULAS_EXTRACURRICULARES ||--o{ EVENTOS_EXTRACURRICULARES : promove
+
+    USUARIOS {
+        int id_usuario PK
+        varchar nome_completo
+        varchar email UK
+        varchar senha_hash
+        varchar serie_escolar
+        enum tipo_usuario
+        varchar foto_perfil
+        text biografia
+        datetime data_cadastro
+    }
+
+    CONTEUDOS {
+        int id_conteudo PK
+        varchar titulo
+        text descricao
+        varchar materia
+        varchar serie_escolar
+        boolean recomendado
+        datetime data_publicacao
+        int id_autor FK
+    }
+
+    MATERIAIS_ESTUDO {
+        int id_material PK
+        varchar titulo
+        enum tipo_material
+        text descricao
+        varchar arquivo_url
+        enum status_revisao
+        datetime data_publicacao
+        int id_usuario FK
+        int id_conteudo FK
+    }
+
+    DENUNCIAS_MATERIAL {
+        int id_denuncia PK
+        int id_material FK
+        int id_usuario FK
+        varchar motivo
+        enum status
+        datetime data_denuncia
+    }
+
+    PLANOS_ESTUDO {
+        int id_plano PK
+        varchar titulo
+        text descricao
+        date data_inicio
+        date data_fim
+        int id_usuario FK
+    }
+
+    ATIVIDADES_PLANO {
+        int id_atividade PK
+        varchar titulo
+        text descricao
+        date data_prevista
+        boolean concluida
+        datetime data_conclusao
+        int id_plano FK
+        int id_conteudo FK
+    }
+
+    SEQUENCIAS_ESTUDO {
+        int id_sequencia PK
+        varchar nome
+        date data_inicio
+        date data_fim
+        int dias_consecutivos
+        int id_criador FK
+    }
+
+    SEQUENCIA_PARTICIPANTES {
+        int id_sequencia PK, FK
+        int id_usuario PK, FK
+        datetime data_entrada
+    }
+
+    AMIZADES {
+        int id_amizade PK
+        int id_usuario FK
+        int id_amigo FK
+        enum status
+        datetime data_solicitacao
+    }
+
+    MENSAGENS {
+        int id_mensagem PK
+        int id_remetente FK
+        int id_destinatario FK
+        text conteudo
+        datetime data_envio
+    }
+
+    CONQUISTAS {
+        int id_conquista PK
+        varchar nome UK
+        text descricao
+    }
+
+    USUARIOS_CONQUISTAS {
+        int id_usuario PK, FK
+        int id_conquista PK, FK
+        datetime data_conquista
+    }
+
+    CONSENTIMENTOS_LGPD {
+        int id_consentimento PK
+        int id_usuario FK
+        varchar finalidade
+        boolean aceito
+        datetime data_registro
+    }
+
+    AULAS_EXTRACURRICULARES {
+        int id_aula PK
+        varchar titulo
+        varchar categoria
+        text descricao
+        varchar horario
+        varchar local
+        varchar link_inscricao
+    }
+
+    EVENTOS_EXTRACURRICULARES {
+        int id_evento PK
+        int id_aula FK
+        varchar titulo
+        enum tipo_evento
+        datetime data_evento
+        varchar local
+    }
+
+    PROJETOS_EXTERNOS {
+        int id_projeto PK
+        varchar titulo
+        varchar tipo_projeto
+        text descricao
+        date prazo_inscricao
+        varchar link_edital
+        varchar link_inscricao
+        boolean destaque
+        datetime data_publicacao
+    }
+
+    AVISOS {
+        int id_aviso PK
+        varchar titulo
+        text mensagem
+        datetime data_publicacao
+        int id_usuario FK
+    }
